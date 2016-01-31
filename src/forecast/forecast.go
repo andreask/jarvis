@@ -37,8 +37,8 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	} else {
-		for i, weather := range forecast.List {
-			jWeather.JForecastWeatherList[i] = utils.JForecastWeather{
+		for _, weather := range forecast.List {
+			jWeather.JForecastWeatherList = append(jWeather.JForecastWeatherList, utils.JForecastWeather{
 				TempDay: weather.Temp.Day,
 				TempMin: weather.Temp.Min,
 				TempMax: weather.Temp.Max,
@@ -47,8 +47,8 @@ func main() {
 				Humidity: weather.Humidity,
 				Weather: weather.Weather[0].Main,
 				Description: weather.Weather[0].Description,
-				Icon: weather.Weather[0].Icon,
-			}
+				ID: weather.Weather[0].ID,
+			})
 		}
 	}
 
@@ -66,7 +66,7 @@ func main() {
 			Humidity: current.Main.Humidity,
 			Weather: current.Weather[0].Main,
 			Description: current.Weather[0].Description,
-			Icon: current.Weather[0].Icon,
+			ID: current.Weather[0].ID,
 		}
 
 		jWeather.Updated = &utils.Timestamp{ Time: time.Now() }

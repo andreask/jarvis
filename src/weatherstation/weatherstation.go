@@ -6,27 +6,13 @@ import (
 	"os"
 	"github.com/andreask/netatmo-api-go"
 	"encoding/json"
+	"utils"
 )
 
 func check(e error) {
 	if e != nil {
 		panic(e)
 	}
-}
-
-type Module struct {
-	ID string
-	Name string
-	TimeStamp int
-	Values WeatherValues
-}
-
-type WeatherValues struct {
-	Temperature         float32
-	Humidity            int32
-	CO2                 int32
-	Noise               int32
-	Pressure            float32
 }
 
 func main() {
@@ -49,7 +35,7 @@ func main() {
 
 	for _, station := range dc.Stations() {
 		if station.ID == "70:ee:50:05:66:2a" {
-			modules := []Module{}
+			modules := []utils.JStationModule{}
 			f, err := os.Create(os.Getenv("GOPATH") + "/output/weather_station.json")
 
 			check(err)
@@ -60,11 +46,11 @@ func main() {
 
 				fmt.Printf("\tModule : %s (%s)\n", module.ModuleName, module.ID)
 
-				jsonModule := Module {
+				jsonModule := utils.JStationModule {
 					ID: module.ID,
 					Name: module.ModuleName,
 					TimeStamp: int(module.DashboardData.LastMeasure),
-					Values: WeatherValues {
+					Values: utils.JWeatherValues {
 						CO2: module.DashboardData.CO2,
 						Humidity: module.DashboardData.Humidity,
 						Temperature: module.DashboardData.Temperature,

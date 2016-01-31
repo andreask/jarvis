@@ -18,7 +18,7 @@ type JCurrentWeather struct {
 	Humidity  		int 		`json:"humidity"`
 	Weather			string 		`json:"weather"`
 	Description		string 		`json:"description"`
-	Icon			string 		`json:"icon"`
+	ID				int 		`json:"id"`
 }
 
 type JForecastWeather struct {
@@ -30,11 +30,26 @@ type JForecastWeather struct {
 	Humidity  		int 	`json:"humidity"`
 	Weather			string 	`json:"weather"`
 	Description		string 	`json:"description"`
-	Icon			string 	`json:"icon"`
+	ID				int 	`json:"id"`
 }
 
 type JWeather struct {
 	Updated					*Timestamp			`json:"updated"`
 	JCurrentWeather 		JCurrentWeather		`json:"current_weather"`
-	JForecastWeatherList 	[5]JForecastWeather	`json:"forecast_weather"`
+	JForecastWeatherList 	[]JForecastWeather	`json:"forecast_weather"`
+}
+
+type JStationModule struct {
+	ID string
+	Name string
+	TimeStamp int
+	Values JWeatherValues
+}
+
+type JWeatherValues struct {
+	Temperature         float32
+	Humidity            int32
+	CO2                 int32
+	Noise               int32
+	Pressure            float32
 }
