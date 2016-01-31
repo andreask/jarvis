@@ -34,6 +34,7 @@ type JForecastWeather struct {
 }
 
 type JWeather struct {
-	JCurrentWeather JCurrentWeather				`json:"current_weather"`
-	JForecastWeatherList [5]JForecastWeather	`json:"forecast_weather"`
+	Updated					*Timestamp			`json:"updated"`
+	JCurrentWeather 		JCurrentWeather		`json:"current_weather"`
+	JForecastWeatherList 	[5]JForecastWeather	`json:"forecast_weather"`
 }

@@ -69,6 +69,8 @@ func main() {
 			Icon: current.Weather[0].Icon,
 		}
 
+		jWeather.Updated = &utils.Timestamp{ Time: time.Now() }
+
 		byteArray, err := json.Marshal(jWeather)
 
 		if err == nil {
